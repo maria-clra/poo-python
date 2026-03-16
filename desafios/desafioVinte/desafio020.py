@@ -5,18 +5,19 @@ class Gamer:
     def __init__(self, nome, nick):
         self.nome = nome
         self.nick = nick
-        self.itens = []
+        self.itens = list()
 
     def add_favoritos(self, jogos_favoritos):
         self.itens.append(jogos_favoritos)
-        return self.itens
+        self.itens = sorted(self.itens, key=str.lower)
 
     def ficha_gamer(self):
         title = f"Jogador < {self.nick} >"
         conteudo = f"Nome real: {self.nome}\n"
-        conteudo += "Jogos favoritos:\n"
-        conteudo += ":video_game: " + "\n:video_game: ".join(self.itens)
-        ficha = Panel(conteudo, title=title)
+        conteudo += "Jogos favoritos:"
+        for num, jogos_favoritos in enumerate(self.itens):
+            conteudo += f"\n:video_game: {jogos_favoritos}"
+        ficha = Panel(conteudo, title=title, width=40)
         print(ficha)
 
 
