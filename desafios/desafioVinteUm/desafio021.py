@@ -1,10 +1,19 @@
 from rich import print
 
 class Caneta: 
-    tampada = True
 
     def __init__(self,cor):
-        self.cor = cor
+        match cor.lower().strip():
+            case "azul":
+                escolha = "[blue]"
+            case "vermelho":
+                escolha = "[red]"
+            case "verde":
+                escolha = "[green]"
+            case _:
+                escolha = "[white]"
+        self.cor = escolha
+        self.tampada = True
 
     def tampar(self):
         self.tampada = True
@@ -13,24 +22,20 @@ class Caneta:
         self.tampada = False
 
     def escrever(self, conteudo):
-        if not self.tampada:
-            if self.cor == "vermelha":
-                print(f"[red]{conteudo}")
-            elif self.cor == "verde":
-                print(f"[green]{conteudo}")
-            elif self.cor == "azul":
-                print(f"[blue]{conteudo}")
+        if self.tampada:
+            print(f":prohibited: A {self.cor}caneta[/] está tampada!")
+        else:
+            print(f"{self.cor}{conteudo}[/]", end="")
 
-    def quebrar_linha(self):
-        print("\n")
+    def quebrar_linha(self, qtd = 1):
+        print("\n" * qtd, end="")
 
 c1 = Caneta("vermelha")
 c2 = Caneta("verde")
 c3 = Caneta("vermelha")
 
-c2.destampar()
+c3.destampar()
+c1.escrever("oi")
 c2.escrever("oi")
-c3.escrever("sei")
-c3.tampar()
 c3.escrever("oi")
-c3.escrever("sei")
+
