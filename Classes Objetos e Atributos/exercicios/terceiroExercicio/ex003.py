@@ -16,8 +16,11 @@ Cria uma conta bancária e permite fazer saques e depósitos
         self.saldo += valor
         print(f"Depósito de R${valor:,.2f} autorizado na conta {self.id}.")
     def sacar(self, valor):
-        self.saldo -= valor
-        print(f"Saque de R${valor:,.2f} autorizado na conta {self.id}.")
+        if valor > self.saldo:
+            print(f"Saque NEGADO: Saldo insuficiente")
+        else:
+            self.saldo -= valor
+            print(f"Saque de R${valor:,.2f} autorizado na conta {self.id}.")
     
 c1 = ContaBancaria(112, "Maria", 3000)
 c1.depositar(500)
